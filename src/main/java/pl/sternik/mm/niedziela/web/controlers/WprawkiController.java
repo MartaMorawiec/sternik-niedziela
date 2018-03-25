@@ -25,4 +25,23 @@ public class WprawkiController {
         return "wprawki-jsp";
     }
 
+    @GetMapping(path = "/wprawki-jsp/{cos}")
+    public String wprawki(@PathVariable String cos, ModelMap model) {
+        model.addAttribute("cos", cos);
+        model.put("msg", "Wartosc z modelu");
+        model.addAttribute("data", new Date());
+        return "wprawki-jsp";
+    }
+
+    @GetMapping("/wprawki2")
+    @ResponseBody
+    public String wprawkiParam(@RequestParam("cos") String cosParam, ModelMap model){
+        return "Wprawki z param cos=" + cosParam;
+    }
+
+    @GetMapping("/wprawki3")
+    @ResponseBody
+    public String wprawkiHeader(@RequestHeader("User-Agent") String cosParam, ModelMap model){
+        return "Uzywasz przegladarki=" + cosParam;
+    }
 }
