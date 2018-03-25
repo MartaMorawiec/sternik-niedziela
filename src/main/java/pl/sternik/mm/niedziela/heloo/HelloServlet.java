@@ -14,6 +14,4 @@ public class HelloServlet extends HttpServlet{
         response.getOutputStream().println("Mój pierwszy servlet z obsluga POST ->"
                 + request.getParameter("param1"));
     }
-
-
 }
