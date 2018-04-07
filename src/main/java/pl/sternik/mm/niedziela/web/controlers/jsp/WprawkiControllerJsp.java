@@ -1,4 +1,4 @@
-package pl.sternik.mm.niedziela.web.controlers;
+package pl.sternik.mm.niedziela.web.controlers.jsp;
 
 import java.util.Date;
 
@@ -12,10 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
-
 @Controller
-public class WprawkiController {
+public class WprawkiControllerJsp {
 
 
     @RequestMapping(path = "/wprawki-jsp", method = RequestMethod.GET)
