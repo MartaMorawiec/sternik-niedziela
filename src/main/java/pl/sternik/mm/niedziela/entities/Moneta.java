@@ -5,18 +5,25 @@ import org.hibernate.validator.constraints.NotEmpty;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
+@Entity
 @XmlRootElement
 public class Moneta {
 
+    @Id
     @NotNull
     private Long numerKatalogowy;
 
     @NotNull
     private Long nominal;
 
+    // @Size(min=2, max=30, message = "{Size.moneta.opis}")
+    @Size(min = 2, max = 30, message = "Opis should be in the range [{min}...{max}]")
     private String opis;
     @NotEmpty
     private String waluta;
@@ -29,10 +36,8 @@ public class Moneta {
     @NotNull
     private Status status;
 
-
-
-    public static Moneta produceMoneta(Long numerKatalogowy, String krajPochodzenia, Long nominal, String waluta, String opis,
-                                       Date dataNabycia, BigDecimal cenaNabycia, Status status) {
+    public static Moneta produceMoneta(Long numerKatalogowy, String krajPochodzenia, Long nominal, String waluta, String opis, Date dataNabycia,
+                                       BigDecimal cenaNabycia, Status status) {
         Moneta m = new Moneta();
         m.numerKatalogowy = numerKatalogowy;
         m.krajPochodzenia = krajPochodzenia;
@@ -178,9 +183,8 @@ public class Moneta {
 
     @Override
     public String toString() {
-        return "Moneta [numerKatalogowy=" + numerKatalogowy + ", nominal=" + nominal + ", Opis=" + opis + ", waluta="
-                + waluta + ", cenaNabycia=" + cenaNabycia + ", dataNabycia=" + dataNabycia + ", krajPochodzenia="
-                + krajPochodzenia + ", status=" + status + "]";
+        return "Moneta [numerKatalogowy=" + numerKatalogowy + ", nominal=" + nominal + ", Opis=" + opis + ", waluta=" + waluta + ", cenaNabycia="
+                + cenaNabycia + ", dataNabycia=" + dataNabycia + ", krajPochodzenia=" + krajPochodzenia + ", status=" + status + "]";
     }
 
 }

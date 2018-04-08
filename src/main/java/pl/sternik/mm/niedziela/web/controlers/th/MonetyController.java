@@ -14,17 +14,22 @@ import pl.sternik.mm.niedziela.services.KlaserService;
 import pl.sternik.mm.niedziela.services.NotificationService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 @Controller
 public class MonetyController {
 
     @Autowired
-    // @Qualifier("spring-data")
-    @Qualifier("tablica")
+    private Logger logger;
+
+    @Autowired
+    @Qualifier("spring-data")
+//    @Qualifier("tablica")
     // @Qualifier("lista")
     private KlaserService klaserService;
 
@@ -38,7 +43,7 @@ public class MonetyController {
 
     @ModelAttribute("MyMessages")
     public List<NotificationService.NotificationMessage> populateMessages() {
-        System.out.println("nic");
+        logger.info("Daj messagesy!");
         return notifyService.getNotificationMessages();
     }
 
@@ -74,8 +79,7 @@ public class MonetyController {
     }
 
     @RequestMapping(value = "/monety", params = { "save" }, method = RequestMethod.POST)
-    public String saveMoneta(Moneta moneta, BindingResult bindingResult, ModelMap model) {
-        // @Valid
+    public String saveMoneta(@Valid Moneta moneta, BindingResult bindingResult, ModelMap model) {
         if (bindingResult.hasErrors()) {
             notifyService.addErrorMessage("Please fill the form correctly!");
             model.addAttribute("MyMessages",  notifyService.getNotificationMessages());
@@ -96,7 +100,7 @@ public class MonetyController {
     }
 
     @RequestMapping(value = "/monety", params = { "create" }, method = RequestMethod.POST)
-    public String createMoneta(Moneta moneta, BindingResult bindingResult, ModelMap model) {
+    public String createMoneta(@Valid Moneta moneta, BindingResult bindingResult, ModelMap model) {
         if (bindingResult.hasErrors()) {
             notifyService.addErrorMessage("Please fill the form correctly!");
             model.addAttribute("MyMessages",  notifyService.getNotificationMessages());
@@ -109,9 +113,9 @@ public class MonetyController {
     }
 
     @RequestMapping(value = "/monety", params = { "remove" }, method = RequestMethod.POST)
-    public String removeRow(final Moneta moneta, final BindingResult bindingResult, final HttpServletRequest req) {
-        final Integer rowId = Integer.valueOf(req.getParameter("remove"));
-        Optional<Boolean> result = klaserService.deleteById(rowId.longValue());
+    public String removeRow(final Moneta moneta, final BindingResult bindingResult, final HttpServletRequest req, @RequestParam Integer remove) {
+//        final Integer rowId = Integer.valueOf(req.getParameter("remove"));
+        Optional<Boolean> result = klaserService.deleteById(remove.longValue());
         return "redirect:/monety";
     }
 

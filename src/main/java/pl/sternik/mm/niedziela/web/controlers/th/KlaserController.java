@@ -17,8 +17,8 @@ import java.util.List;
 public class KlaserController {
 
     @Autowired
-//    @Qualifier("spring-data")
-    @Qualifier("tablica")
+    @Qualifier("spring-data")
+//    @Qualifier("tablica")
 //    @Qualifier("lista")
     private KlaserService klaserService;
 
@@ -62,4 +62,3 @@ public class KlaserController {
     }
 
 }
-
